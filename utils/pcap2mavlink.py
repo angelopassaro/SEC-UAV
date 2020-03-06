@@ -30,7 +30,7 @@ def convert(gcs, uav, file):
         outfile.write("Timestamp;Src;Dst;MavLinkMsg;MavLinkParam\n")
         timestamp, dst, src, data = ("", "", "", "")
         for packet in packets:
-            if packet.getlayer("ICMP") is None and packet.getlayer("IP") is not None:
+            if packet.getlayer("ICMP") is None and packet.getlayer("IP") is not None and packet.version == 4:
                 timestamp = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(int(packet.time)))
                 if packet.getlayer("IP").src == uav and packet.getlayer("IP").dst == gcs:
                     data = packet.getlayer("Raw").load
@@ -41,11 +41,10 @@ def convert(gcs, uav, file):
                     src, dst = ("GCS", "UAV")
                     # src, dst = (gcs, uav)              write ip
                 else:
-                    data = packet.getlayer("Raw").load
-                    print("qui")
-                    print("Garbage: ", mav.decode(bytearray(data)))
-            type_msg, param = str(mav.decode(bytearray(data))).split('{')
-            outfile.write(f"{timestamp};{src};{dst};{type_msg};{param.split('}')[0]}\n")
+                    print("Garbage: ", packet.getlayer("Raw").load)
+
+                type_msg, param = str(mav.decode(bytearray(data))).split('{')
+                outfile.write(f"{timestamp};{src};{dst};{type_msg};{param.split('}')[0]}\n")
 
     print("Conversion completed")
 
