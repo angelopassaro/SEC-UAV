@@ -32,16 +32,19 @@ def convert(gcs, uav, file):
         for packet in packets:
             if packet.getlayer("ICMP") is None and packet.getlayer("IP") is not None and packet.version == 4:
                 timestamp = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(int(packet.time)))
-                if packet.getlayer("IP").src == uav and packet.getlayer("IP").dst == gcs:
+		# Take packet from uav to gcs (only on port 14550)
+                if packet.getlayer("IP").src == uav and packet.getlayer("IP").dst == gcs and packet.getlayer("IP").dport == 14550:
                     data = packet.getlayer("Raw").load
                     src, dst = ("UAV", "GCS")
                     # src, dst = (uav, gcs)              write ip
-                elif packet.getlayer("IP").src == gcs and packet.getlayer("IP").dst == uav:
+		# Take packet from gcs (only port 14550) to uav
+                elif packet.getlayer("IP").src == gcs and packet.getlayer("IP").dst == uav and packet.getlayer("IP").sport == 14550:
                     data = packet.getlayer("Raw").load
                     src, dst = ("GCS", "UAV")
                     # src, dst = (gcs, uav)              write ip
                 else:
-                    print("Garbage: ", packet.getlayer("Raw").load)
+                    continue
+                    #print("Garbage: ", packet.getlayer("Raw").load)
 
                 type_msg, param = str(mav.decode(bytearray(data))).split('{')
                 outfile.write(f"{timestamp};{src};{dst};{type_msg};{param.split('}')[0]}\n")
