@@ -1,21 +1,21 @@
 # UAV
 Custom MAVLink with lightweight crypto
 
-#Original
+# Original
 [MAVSec](https://github.com/aniskoubaa/mavsec)
 
-#Technologies
+# Technologies
 [MAVLink](https://github.com/mavlink/mavlink)
 
 [Ardupilot](https://github.com/ArduPilot/ardupilot)
 
 [QGroundContro](https://github.com/mavlink/qgroundcontrol)
 
-#Crypto ref
+# Crypto ref
 [FELICS](https://www.cryptolux.org/index.php/FELICS)
 
 
-#Custom
+# Custom
 [CUSTOM MAVLINK](https://github.com/angelopassaro/c_library_v2) MAVLink with lightweight crypto implementation
 - Added crypto/chacha20.h (implementation from mavsec)
 - Added crypto/trivium.h  (implementation from FELICS)
@@ -29,15 +29,18 @@ Custom MAVLink with lightweight crypto
 ### TODO
 
 - [ ] Add encryption
+
 Stream ciphers
 - [x] Add ChaCha20
 - [x] Add Trivium
 - [ ] Add Snow3G
+
 Block ciphers
 - [ ] Simon
 - [ ] Speck
 - [ ] Present
 
 - [ ] Add key exchange
+
 - [ ] Clone https://github.com/ArduPilot/pymavlink/ and update https://github.com/ArduPilot/pymavlink/tree/master/generator/C/include_v2.0 with custom files
 - [ ] Benchmark
