@@ -9,7 +9,7 @@ Custom MAVLink with lightweight crypto
 
 [Ardupilot](https://github.com/ArduPilot/ardupilot)
 
-[QGroundContro](https://github.com/mavlink/qgroundcontrol)
+[QGroundControl](https://github.com/mavlink/qgroundcontrol)
 
 # Crypto ref
 [FELICS](https://www.cryptolux.org/index.php/FELICS)
@@ -44,3 +44,4 @@ Block ciphers
 
 - [ ] Clone https://github.com/ArduPilot/pymavlink/ and update https://github.com/ArduPilot/pymavlink/tree/master/generator/C/include_v2.0 with custom files
 - [ ] Benchmark
+- [ ] Remove useless modules
