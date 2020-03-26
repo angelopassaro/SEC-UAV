@@ -19,6 +19,7 @@ Custom MAVLink with lightweight crypto
 [CUSTOM MAVLINK](https://github.com/angelopassaro/c_library_v2) MAVLink with lightweight crypto implementation
 - Added crypto/chacha20.h (implementation from mavsec)
 - Added crypto/trivium.h  (implementation from FELICS)
+- Added crypto/rabbit.h   (implementation from paper Rabbit: A New High-Performance Stream Cipher + iv from ECRYPT)
 - Edit mavlink_helpers.h for support encryption between UAV ang GCS
 
 [ARDUPILOT](https://github.com/angelopassaro/ardupilot) Custom Ardupilot
@@ -33,7 +34,7 @@ Custom MAVLink with lightweight crypto
 Stream ciphers
 - [x] Add ChaCha20
 - [x] Add Trivium
-- [ ] Add Snow3G
+- [x] Add Rabbit
 
 Block ciphers
 - [ ] Simon
