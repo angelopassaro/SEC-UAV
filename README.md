@@ -1,5 +1,6 @@
 # UAV
-Custom MAVLink with lightweight crypto. The idea of add encryption in MAVLink was proposed in [MAVSec](https://github.com/aniskoubaa/mavsec). In this work I added different lightweight cryptography for test theier performance.
+
+In this work I added different  algorithms of  lightweight cryptography for test their performance. The original idea of add encryption in MAVLink was propose in "MAVSec: Securing the MAVLink Protocol for Ardupilot/PX4 Unmanned Aerial Systems"
 
 # Original
 [MAVSec](https://github.com/aniskoubaa/mavsec)
