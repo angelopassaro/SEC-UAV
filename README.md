@@ -1,5 +1,5 @@
 # UAV
-Custom MAVLink with lightweight crypto
+Custom MAVLink with lightweight crypto. The idea of add encryption in MAVLink was proposed in [MAVSec](https://github.com/aniskoubaa/mavsec). In this work I added different lightweight cryptography for test theier performance.
 
 # Original
 [MAVSec](https://github.com/aniskoubaa/mavsec)
@@ -10,9 +10,6 @@ Custom MAVLink with lightweight crypto
 [Ardupilot](https://github.com/ArduPilot/ardupilot)
 
 [QGroundControl](https://github.com/mavlink/qgroundcontrol)
-
-# Crypto ref
-[FELICS](https://www.cryptolux.org/index.php/FELICS)
 
 
 # Custom
@@ -39,14 +36,13 @@ Stream ciphers
 Block ciphers
 - [ ] Simon
 - [ ] Speck
-- [ ] Present
 
 - [ ] Add key exchange
 
 - [ ] Clone https://github.com/ArduPilot/pymavlink/ and update https://github.com/ArduPilot/pymavlink/tree/master/generator/C/include_v2.0 with custom files
 - [ ] Benchmark
 
-- [ ] Remove useless modules
+- [ ] Remove useless modules in repo (Ardupilot, QgroundControl)
 - [ ] script for setup
 # Usage
 - Clone [Ardupilot](https://github.com/ArduPilot/ardupilot) or [Ardupilot Custom](https://github.com/angelopassaro/ardupilot)(for bridge network in vagrant)  and [QGroundControl](https://github.com/mavlink/qgroundcontrol)
