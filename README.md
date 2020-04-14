@@ -28,7 +28,7 @@ In this work I added different  algorithms of  lightweight cryptography for test
 
 ### TODO
 
-- [ ] Add encryption
+- [x] Add encryption
 
 Stream ciphers
 - [x] Add ChaCha20
@@ -40,6 +40,10 @@ Block ciphers CTR-mode
 - [x] Speck
 
 - [ ] Add key exchange
+
+- [ ] Create new message in MAVLink
+- [ ] Integrate new message in SITL
+- [ ] Integrate new message in QgrounControl
 
 - [ ] Clone https://github.com/ArduPilot/pymavlink/ and update https://github.com/ArduPilot/pymavlink/tree/master/generator/C/include_v2.0 with custom files
 - [ ] Benchmark
