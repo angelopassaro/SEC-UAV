@@ -15,14 +15,18 @@ In this work I added different  algorithms of  lightweight cryptography for test
 
 # Custom
 [CUSTOM MAVLINK](https://github.com/angelopassaro/c_library_v2) MAVLink with lightweight crypto implementation
+- Edit mavlink_helpers.h for support encryption between UAV ang GCS
 - Added crypto/chacha20.h (implementation from mavsec)
 - Added crypto/trivium.h  (implementation from FELICS)
 - Added crypto/rabbit.h   (implementation from paper Rabbit: A New High-Performance Stream Cipher + iv from ECRYPT)
 - Added crypto/simon6496.h (implementation from (https://github.com/angelopassaro/simon-speck)
 - Added crypto/simon64128.h (implementation from (https://github.com/angelopassaro/simon-speck)
+- Added crypto/simon128128.h (implementation from (https://github.com/angelopassaro/simon-speck)
+- Added crypto/simon128128.h (implementation from (https://github.com/angelopassaro/simon-speck)
 - Added crypto/speck6496.h (implementation from (https://github.com/angelopassaro/simon-speck)
 - Added crypto/speck64128.h (implementation from (https://github.com/angelopassaro/simon-speck)
-- Edit mavlink_helpers.h for support encryption between UAV ang GCS
+- Added crypto/speck128128.h (implementation from (https://github.com/angelopassaro/simon-speck)
+- Added crypto/speck128192.h (implementation from (https://github.com/angelopassaro/simon-speck)
 
 [ARDUPILOT-SITL](https://github.com/angelopassaro/ardupilot) Custom Ardupilot
 - Added two parameters in sim_vehicle.py for gcs-ip and uav-ip
