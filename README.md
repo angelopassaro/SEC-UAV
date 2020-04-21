@@ -52,7 +52,7 @@ Block ciphers CTR-mode
 - [ ] Integrate new message in SITL
 - [ ] Integrate new message in QgrounControl
 
-- [ ] Clone https://github.com/ArduPilot/pymavlink/ and update https://github.com/ArduPilot/pymavlink/tree/master/generator/C/include_v2.0 with custom files
+- [x] Clone https://github.com/ArduPilot/pymavlink/ and update https://github.com/ArduPilot/pymavlink/tree/master/generator/C/include_v2.0 with custom files
 - [ ] Benchmark
 
 - [x] Remove useless modules in repo (Ardupilot, QgroundControl)
