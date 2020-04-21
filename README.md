@@ -46,9 +46,11 @@ Block ciphers CTR-mode
 - [x] Simon
 - [x] Speck
 
+- [ ] Merge in unique file crypto 
 - [ ] Add key exchange
 
-- [ ] Create new message in MAVLink
+- [x] Create new message in MAVLink (Certificate for pubkey)
+- [ ] Handle in MAVLink the new message
 - [ ] Integrate new message in SITL
 - [ ] Integrate new message in QgrounControl
 
