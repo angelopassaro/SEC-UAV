@@ -22,11 +22,13 @@ In this work I added different  algorithms of  lightweight cryptography for test
 - Added crypto/simon6496.h (implementation from (https://github.com/angelopassaro/simon-speck)
 - Added crypto/simon64128.h (implementation from (https://github.com/angelopassaro/simon-speck)
 - Added crypto/simon128128.h (implementation from (https://github.com/angelopassaro/simon-speck)
-- Added crypto/simon128128.h (implementation from (https://github.com/angelopassaro/simon-speck)
+- Added crypto/simon128192.h (implementation from (https://github.com/angelopassaro/simon-speck)
+- Added crypto/simon128256.h (implementation from (https://github.com/angelopassaro/simon-speck)
 - Added crypto/speck6496.h (implementation from (https://github.com/angelopassaro/simon-speck)
 - Added crypto/speck64128.h (implementation from (https://github.com/angelopassaro/simon-speck)
 - Added crypto/speck128128.h (implementation from (https://github.com/angelopassaro/simon-speck)
 - Added crypto/speck128192.h (implementation from (https://github.com/angelopassaro/simon-speck)
+- Added crypto/speck128256.h (implementation from (https://github.com/angelopassaro/simon-speck)
 
 [ARDUPILOT-SITL](https://github.com/angelopassaro/ardupilot) Custom Ardupilot
 - Added two parameters in sim_vehicle.py for gcs-ip and uav-ip
@@ -66,3 +68,4 @@ Block ciphers CTR-mode
 # Usage
 - Clone [Ardupilot](https://github.com/ArduPilot/ardupilot) or [Ardupilot Custom](https://github.com/angelopassaro/ardupilot)(for bridge network in vagrant)  and [QGroundControl](https://github.com/mavlink/qgroundcontrol)
 - Copy contents of [Custom Mavlink](https://github.com/angelopassaro/c_library_v2) for ardupilot in ardupilot/build/sitl/libraries/GCS_MAVLink/include/mavlink/v2.0/ and for qgroundcontrol in qgroundcontrol/libs/mavlink/include/mavlink/v2.0/ 
+
