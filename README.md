@@ -29,7 +29,7 @@ In this work I added different  algorithms of  lightweight cryptography for test
 - Added crypto/speck128128.h (implementation from (https://github.com/angelopassaro/simon-speck)
 - Added crypto/speck128192.h (implementation from (https://github.com/angelopassaro/simon-speck)
 - Added crypto/speck128256.h (implementation from (https://github.com/angelopassaro/simon-speck)
-
+- Added FourQlib [original implementation](https://github.com/microsoft/FourQlib)
 [ARDUPILOT-SITL](https://github.com/angelopassaro/ardupilot) Custom Ardupilot
 - Added two parameters in sim_vehicle.py for gcs-ip and uav-ip
 - Added bridge in Vagrantfile
@@ -51,7 +51,7 @@ Block ciphers CTR-mode
 
 #### Key exchange
 - [x] Create new message in MAVLink (Certificate for pubkey)
-- [ ] Keyechange with  [FourQlib](https://github.com/microsoft/FourQlib) or Curve25519
+- [ ] FourQlib integration in mavlink
 - [ ] Handle in MAVLink the new message
 - [ ] Integrate new message in SITL
 - [ ] Integrate new message in QgrounControl
@@ -60,7 +60,7 @@ Block ciphers CTR-mode
 - [ ] Benchmark
 
 #### Other
-- [ ] Merge in unique file crypto 
+- [x] Merge in unique file crypto 
 - [x] Clone https://github.com/ArduPilot/pymavlink/ and update https://github.com/ArduPilot/pymavlink/tree/master/generator/C/include_v2.0 with custom files
 - [x] Remove useless modules in repo (Ardupilot, QgroundControl)
 - [ ] Script for setup
