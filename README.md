@@ -19,16 +19,16 @@ In this work I added different  algorithms of  lightweight cryptography for test
 - Added crypto/chacha20.h (implementation from mavsec)
 - Added crypto/trivium.h  (implementation from FELICS)
 - Added crypto/rabbit.h   (implementation from paper Rabbit: A New High-Performance Stream Cipher + iv from ECRYPT)
-- Added crypto/simon6496.h (implementation from (https://github.com/angelopassaro/simon-speck)
-- Added crypto/simon64128.h (implementation from (https://github.com/angelopassaro/simon-speck)
-- Added crypto/simon128128.h (implementation from (https://github.com/angelopassaro/simon-speck)
-- Added crypto/simon128192.h (implementation from (https://github.com/angelopassaro/simon-speck)
-- Added crypto/simon128256.h (implementation from (https://github.com/angelopassaro/simon-speck)
-- Added crypto/speck6496.h (implementation from (https://github.com/angelopassaro/simon-speck)
-- Added crypto/speck64128.h (implementation from (https://github.com/angelopassaro/simon-speck)
-- Added crypto/speck128128.h (implementation from (https://github.com/angelopassaro/simon-speck)
-- Added crypto/speck128192.h (implementation from (https://github.com/angelopassaro/simon-speck)
-- Added crypto/speck128256.h (implementation from (https://github.com/angelopassaro/simon-speck)
+- Added crypto/simon6496.h [implementation](https://github.com/angelopassaro/simon-speck)
+- Added crypto/simon64128.h [implementation](https://github.com/angelopassaro/simon-speck)
+- Added crypto/simon128128.h [implementation](https://github.com/angelopassaro/simon-speck)
+- Added crypto/simon128192.h [implementation](https://github.com/angelopassaro/simon-speck)
+- Added crypto/simon128256.h [implementation](https://github.com/angelopassaro/simon-speck)
+- Added crypto/speck6496.h [implementation](https://github.com/angelopassaro/simon-speck)
+- Added crypto/speck64128.h [implementation](https://github.com/angelopassaro/simon-speck)
+- Added crypto/speck128128.h [implementation](https://github.com/angelopassaro/simon-speck)
+- Added crypto/speck128192.h [implementation](https://github.com/angelopassaro/simon-speck)
+- Added crypto/speck128256.h [implementation](https://github.com/angelopassaro/simon-speck)
 - Added two parameters in sim_vehicle.py for gcs-ip and uav-ip
 - Added bridge in Vagrantfile
 - Added FourQlib [original implementation](https://github.com/microsoft/FourQlib)
@@ -47,18 +47,18 @@ Stream ciphers
 Block ciphers CTR-mode
 - [x] Simon
 - [x] Speck
-
+-------------------------------------------------------------
 #### Key exchange
 - [x] Create new message in MAVLink (Certificate for pubkey)
 - [x] FourQlib integration in mavlink
 - [ ] Handle in MAVLink the new message
----------------------------------------------------------------
+-------------------------------------------------------------
 - [ ] Integrate new message in SITL
 - [ ] Integrate new message in QgrounControl
-
+-------------------------------------------------------------
 #### Benchmark
 - [ ] Benchmark
-
+------------------------------------------------------------
 #### Other
 - [x] Merge in unique file crypto 
 - [x] Clone https://github.com/ArduPilot/pymavlink/ and update https://github.com/ArduPilot/pymavlink/tree/master/generator/C/include_v2.0 with custom files
