@@ -30,7 +30,6 @@ In this work I added different  algorithms of  lightweight cryptography for test
 - Added crypto/speck128192.h (implementation from (https://github.com/angelopassaro/simon-speck)
 - Added crypto/speck128256.h (implementation from (https://github.com/angelopassaro/simon-speck)
 - Added FourQlib [original implementation](https://github.com/microsoft/FourQlib)
-[ARDUPILOT-SITL](https://github.com/angelopassaro/ardupilot) Custom Ardupilot
 - Added two parameters in sim_vehicle.py for gcs-ip and uav-ip
 - Added bridge in Vagrantfile
 
