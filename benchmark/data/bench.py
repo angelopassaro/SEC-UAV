@@ -1,8 +1,21 @@
+#!/bin/python3
+
 import pandas as pd
 import sys,os
 import plotly.graph_objects as go
 from glob import glob
 from datetime import datetime,timedelta
+
+"""
+bench.py 0 /abs/path/to/dir/cipher
+becnh.py 1 /abs/path/to/dir/
+becnh.py 2 /abs/path/to/file
+
+TODO check argument and fix path in plot
+"""
+
+
+colors = ['rgb(220, 90, 90)','rgb(130, 120, 90)','rgb(31, 127, 44)','rgb(31, 119, 180)', 'rgb(255, 127, 14)', 'rgb(44, 160, 44)', 'rgb(214, 39, 40)', 'rgb(148, 103, 189)', 'rgb(140, 86, 75)', 'rgb(227, 119, 194)', 'rgb(127, 127, 127)', 'rgb(188, 189, 34)', 'rgb(23, 190, 207)']
 
 def merge(dir_path):
     list_of_csv = [csv for csv in glob('{}/*.csv'.format(dir_path))]
@@ -23,15 +36,15 @@ def merge(dir_path):
 
 def plot(dir_path):
     list_result =  [os.path.abspath(name) for name in os.listdir(dir_path) if os.path.isdir(os.path.abspath(name)) and os.path.isfile("{}/result.csv".format(name)) and os.access("{}/result.csv".format(name), os.R_OK)]
-    colors = ['rgb(220, 90, 90)','rgb(130, 120, 90)','rgb(31, 127, 44)','rgb(31, 119, 180)', 'rgb(255, 127, 14)', 'rgb(44, 160, 44)', 'rgb(214, 39, 40)', 'rgb(148, 103, 189)', 'rgb(140, 86, 75)', 'rgb(227, 119, 194)', 'rgb(127, 127, 127)', 'rgb(188, 189, 34)', 'rgb(23, 190, 207)']
     names = []
     cpus_avg = []
     mems_avg = []
     for result in list_result:
         df = pd.read_csv("{}/result.csv".format(result),sep=",",header=0,encoding='utf-8')
-        names.append(result.split('/')[-1])
+        names.append(result.split('/')[-1].capitalize())
         cpus_avg.append(df['%CPU'].mean())
         mems_avg.append(df['RSS'].mean()/1000)
+
     fig_cpu = go.Figure(data=[
 	go.Bar(name='%CPU usage',x=names,y=cpus_avg, marker_color=colors)
 	])
@@ -63,11 +76,34 @@ def plot(dir_path):
     ))
     fig_mem.show()
 
+def battery_plot(file_path):
+    df = pd.read_csv(file_path,sep=",",header=0,encoding='utf-8')
+    bats_avg = [df[name].mean() for name in list(df.columns)]
+
+    fig_bat = go.Figure(data=[
+        go.Bar(name='Accumulated Consumption ',x=list(df.columns),y=bats_avg, marker_color=colors)
+        ])
+    fig_bat.update_layout(
+            barmode='group',
+            title="Accumulated Consumption",
+            xaxis_title="algorithms",
+            yaxis_title="mAh",
+           font=dict(
+               family="Courier New, monospace",
+               size=18,
+               color="#7f7f7f"
+    ))
+
+    fig_bat.show()
+
 
 if __name__ == "__main__":
     if sys.argv[1] == '0':
         print("Merge files")
         merge(sys.argv[2])
     elif sys.argv[1] == '1':
-        print("Plot graph")
+        print("CPU and MEM plot")
         plot(sys.argv[2])
+    elif sys.argv[1] == '2':
+        print("Battery plot")
+        battery_plot(sys.argv[2])
