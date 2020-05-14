@@ -1,4 +1,5 @@
 Time,UID,PID,%usr,%system,%guest,%wait,%CPU,CPU,minflt/s,majflt/s,VSZ,RSS,%MEM,Command
+Time,UID,PID,%usr,%system,%guest,%wait,%CPU,CPU,minflt/s,majflt/s,VSZ,RSS,%MEM,Command
 10:48:06,1000,4467,5.83,10.68,0.0,0.97,16.5,0,2.91,0.0,19240,6160,0.19,arducopter
 10:48:07,1000,4467,4.95,10.89,0.0,1.98,15.84,0,0.0,0.0,19240,6160,0.19,arducopter
 10:48:08,1000,4467,11.0,7.0,0.0,2.0,18.0,0,0.0,0.0,19240,6160,0.19,arducopter

@@ -7,11 +7,12 @@ from glob import glob
 from datetime import datetime,timedelta
 
 """
-bench.py 0 /abs/path/to/dir/cipher
-becnh.py 1 /abs/path/to/dir/
-becnh.py 2 /abs/path/to/file
+Example of usage :
+bench.py 0 /abs/path/to/dir/cipher   merge all csv in cipher in a unique file 
+becnh.py 1 /abs/path/to/dir/         plot a bar chart with cpu and mem usage
+becnh.py 2 /abs/path/to/file         plot bar chart for battery
 
-TODO check argument and fix path in plot
+TODO handle params
 """
 
 
@@ -20,8 +21,7 @@ colors = ['rgb(220, 90, 90)','rgb(130, 120, 90)','rgb(31, 127, 44)','rgb(31, 119
 def merge(dir_path):
     list_of_csv = [csv for csv in glob('{}/*.csv'.format(dir_path))]
     for csv in list_of_csv:
-        timer = csv.split(".")[0]
-        timer = timer.split("-")[1:]
+        timer = csv.split(".")[0].split("/")[-1].split("-")[1:]
         file = pd.read_csv(csv,sep=",")
         d = datetime.strptime(file['Time'][0],"%H:%M:%S")
         max_time = d + timedelta(minutes=int(timer[1]),seconds=int(timer[2]))
@@ -35,7 +35,7 @@ def merge(dir_path):
     pd_obj.to_csv(merged_csv,index=False)
 
 def plot(dir_path):
-    list_result =  [os.path.abspath(name) for name in os.listdir(dir_path) if os.path.isdir(os.path.abspath(name)) and os.path.isfile("{}/result.csv".format(name)) and os.access("{}/result.csv".format(name), os.R_OK)]
+    list_result =  ["{}/{}".format(dir_path,name) for name in os.listdir(dir_path) if os.path.isdir("{}/{}".format(dir_path,name)) and os.path.isfile("{}/{}/result.csv".format(dir_path,name)) and os.access("{}/{}/result.csv".format(dir_path,name), os.R_OK)]
     names = []
     cpus_avg = []
     mems_avg = []
@@ -75,6 +75,12 @@ def plot(dir_path):
                color="#7f7f7f"
     ))
     fig_mem.show()
+    
+    if not os.path.exists("{}/result".format(dir_path)):
+        os.mkdir("{}/result".format(dir_path))
+
+    fig_cpu.write_image("{}/result/cpu.png".format(dir_path))
+    fig_mem.write_image("{}/result/mem.png".format(dir_path))
 
 def battery_plot(file_path):
     df = pd.read_csv(file_path,sep=",",header=0,encoding='utf-8')
@@ -95,6 +101,11 @@ def battery_plot(file_path):
     ))
 
     fig_bat.show()
+
+    if not os.path.exists("{}/result".format(file_path.rsplit("/",1)[0])):
+        os.mkdir("{}/result".format(file_path.rsplit("/",1)[0]))
+
+    fig_bat.write_image("{}/result/bat.png".format(file_path.rsplit("/",1)[0]))
 
 
 if __name__ == "__main__":
