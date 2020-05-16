@@ -42,12 +42,13 @@ def plot(dir_path):
     for result in list_result:
         df = pd.read_csv("{}/result.csv".format(result),sep=",",header=0,encoding='utf-8')
         names.append(result.split('/')[-1].capitalize())
-        cpus_avg.append(df['%CPU'].mean())
-        mems_avg.append(df['RSS'].mean()/1000)
+        cpus_avg.append(round(df['%CPU'].mean(),2))
+        mems_avg.append(round(df['RSS'].mean()/1000,2))
 
     fig_cpu = go.Figure(data=[
-	go.Bar(name='%CPU usage',x=names,y=cpus_avg, marker_color=colors)
+	go.Bar(name='%CPU usage',x=names,y=cpus_avg, marker_color=colors,text=cpus_avg, textposition='outside')
 	])
+
     fig_cpu.update_layout(
             barmode='group',
             title="CPU usage",
@@ -58,15 +59,15 @@ def plot(dir_path):
                size=18,
                color="#7f7f7f"
     ))
-
     fig_cpu.show()
 
     fig_mem = go.Figure(data=[
-        go.Bar(name='Mem usage(MB)',x=names,y=mems_avg, marker_color=colors)
+        go.Bar(name='Mem usage(MB)',x=names,y=mems_avg, marker_color=colors,text=mems_avg, textposition='outside')
         ])
+
     fig_mem.update_layout(
             barmode='group', 
-            title="Mem usage", 
+            title="Mem usage",
             xaxis_title="algorithms", 
             yaxis_title="MB", 
            font=dict(
@@ -79,15 +80,15 @@ def plot(dir_path):
     if not os.path.exists("{}/result".format(dir_path)):
         os.mkdir("{}/result".format(dir_path))
 
-    fig_cpu.write_image("{}/result/cpu.png".format(dir_path))
-    fig_mem.write_image("{}/result/mem.png".format(dir_path))
+    fig_cpu.write_image("{}/result/cpu.png".format(dir_path),width=1400,height=1000)
+    fig_mem.write_image("{}/result/mem.png".format(dir_path),width=1400,height=1000)
 
 def battery_plot(file_path):
     df = pd.read_csv(file_path,sep=",",header=0,encoding='utf-8')
     bats_avg = [df[name].mean() for name in list(df.columns)]
 
     fig_bat = go.Figure(data=[
-        go.Bar(name='Accumulated Consumption ',x=list(df.columns),y=bats_avg, marker_color=colors)
+        go.Bar(name='Accumulated Consumption ',x=list(df.columns),y=bats_avg, marker_color=colors, text=bats_avg,textposition='outside')
         ])
     fig_bat.update_layout(
             barmode='group',

@@ -57,7 +57,7 @@ Block ciphers CTR-mode
 - [ ] Integrate new message in QgrounControl
 -------------------------------------------------------------
 #### Benchmark
-- [ ] Benchmark
+- [x] Benchmark
 ------------------------------------------------------------
 #### Other
 - [x] Merge in unique file crypto 
