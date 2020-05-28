@@ -80,8 +80,8 @@ def plot(dir_path):
     if not os.path.exists("{}/result".format(dir_path)):
         os.mkdir("{}/result".format(dir_path))
 
-    fig_cpu.write_image("{}/result/cpu.png".format(dir_path),width=1400,height=1000)
-    fig_mem.write_image("{}/result/mem.png".format(dir_path),width=1400,height=1000)
+    fig_cpu.write_image("{}/result/cpu.png".format(dir_path),width=1200,height=800)
+    fig_mem.write_image("{}/result/mem.png".format(dir_path),width=1200,height=800)
 
 def battery_plot(file_path):
     df = pd.read_csv(file_path,sep=",",header=0,encoding='utf-8')
