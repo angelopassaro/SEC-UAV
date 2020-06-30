@@ -5,6 +5,8 @@ In this work I added different  algorithms of  lightweight cryptography for test
 # Original
 [MAVSec](https://github.com/aniskoubaa/mavsec)
 
+[key exchange good start point](https://github.com/PX4/Firmware/issues/13538)
+
 # Technologies
 [MAVLink](https://github.com/mavlink/mavlink)
 
@@ -35,7 +37,7 @@ In this work I added different  algorithms of  lightweight cryptography for test
 
 
 ### TODO
-
+Working on key exchange
 #### Encryption
 - [x] Add encryption
 
