@@ -22,7 +22,8 @@ typedef struct info_s
     uint8_t seq_number;
     uint8_t device_id;
     char device_name[20];
-    char maintainer[20];
+    char subject[20];
+    char issuer[20];
     uint8_t public_key[32];
     uint8_t public_key_auth[32];
     uint8_t secret_key[32];
@@ -38,8 +39,9 @@ typedef struct mavlink_device_certificate
 
 typedef struct mavlink_authority_certificate
 {
-    char certificateName[32];
-    char owner[32];
+    char certificateName[20];
+    char issuer[20];
+    char subject[20];
     uint8_t seq_number;
     uint8_t public_key[32];
     uint8_t secret_key[32];
@@ -83,16 +85,18 @@ void authorityCertGen(void)
 
     printf("Generation of authority certificate\n");
 
-    CompressedKeyGeneration(cert.public_key, cert.secret_key);
+    CompressedKeyGeneration(cert.secret_key, cert.public_key);
 
     printf("Enter certificate name: ");
     scanf("%s", cert.certificateName);
 
-    printf("Enter certificate owner: ");
-    scanf("%s", cert.owner);
+    printf("Enter certificate issuer: ");
+    scanf("%s", cert.issuer);
+    strcpy(cert.subject, cert.issuer);
 
     printf("Name: %s \n", cert.certificateName);
-    printf("Owner: %s \n", cert.owner);
+    printf("Issuer: %s \n", cert.issuer);
+    printf("Subject: %s \n", cert.subject);
 
     printf("Public_key:");
     hex_print(cert.public_key, 0, 32);
@@ -105,12 +109,13 @@ void authorityCertGen(void)
     hex_print(cert.public_key_auth, 0, 32);
 
     cert.seq_number = 0;
-    printf("%x", cert.seq_number);
+    printf("Sequent number: 0x%x\n", cert.seq_number);
 
     FILE *fp;
     fp = fopen("authority.cert", "wb");
     fwrite(&cert, sizeof(cert), 1, fp);
     fclose(fp);
+    return;
 }
 
 void uavCertGen()
@@ -129,7 +134,8 @@ void uavCertGen()
 
     printf("Loaded authority certificate \n");
     printf("Name: %s\n", authority_certificate.certificateName);
-    printf("Owner: %s\n", authority_certificate.owner);
+    printf("issuer: %s\n", authority_certificate.issuer);
+    printf("Subject: %s\n", authority_certificate.subject);
     printf("Current sequent number %d\n", authority_certificate.seq_number);
     printf("Public_key:");
     hex_print(authority_certificate.public_key, 0, 32);
@@ -148,8 +154,8 @@ void uavCertGen()
     printf("Enter device name: ");
     scanf("%s", device_certificate.info.device_name);
 
-    printf("Enter maintainer name: ");
-    scanf("%s", device_certificate.info.maintainer);
+    printf("Enter subjet name: ");
+    scanf("%s", device_certificate.info.subject);
 
     int days = 0;
     time_t start;
@@ -163,8 +169,9 @@ void uavCertGen()
 
     strcpy(device_certificate.info.startTime, asctime(localtime(&start)));
     strcpy(device_certificate.info.endTime, asctime(localtime(&end)));
+    strcpy(device_certificate.info.issuer, device_certificate.info.subject);
 
-    CompressedKeyGeneration(device_certificate.info.public_key, device_certificate.info.secret_key);
+    CompressedKeyGeneration(device_certificate.info.secret_key, device_certificate.info.public_key);
 
     printf("Pubic_key:");
     hex_print(device_certificate.info.public_key, 0, 32);
@@ -182,11 +189,12 @@ void uavCertGen()
     if (valid)
     {
         printf("Valid Cert\n");
+        memcpy(device_certificate.info.public_key_auth, authority_certificate.public_key, sizeof(authority_certificate.public_key));
+        fp = fopen("device.cert", "wb");
+        fwrite(&device_certificate, sizeof(device_certificate), 1, fp);
+        fclose(fp);
+
+        return;
     }
-
-    memcpy(device_certificate.info.public_key_auth, authority_certificate.public_key, sizeof(authority_certificate.public_key));
-
-    fp = fopen("device.cert", "wb");
-    fwrite(&device_certificate, sizeof(device_certificate), 1, fp);
-    fclose(fp);
+    exit(1);
 }
