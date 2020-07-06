@@ -27,8 +27,8 @@ typedef struct info_s
     uint8_t public_key[32];
     uint8_t public_key_auth[32];
     uint8_t secret_key[32];
-    char startTime[25];
-    char endTime[25];
+    time_t start_time;
+    time_t end_time;
 } info_t;
 
 typedef struct mavlink_device_certificate
@@ -163,12 +163,10 @@ void uavCertGen()
     scanf("%d", &days);
 
     time(&start);
-    struct tm *tm = localtime(&start);
+    struct tm *tm = localtime(&device_certificate.info.start_time);
     tm->tm_mday += days;
-    time_t end = mktime(tm);
+    device_certificate.info.end_time = mktime(tm);
 
-    strcpy(device_certificate.info.startTime, asctime(localtime(&start)));
-    strcpy(device_certificate.info.endTime, asctime(localtime(&end)));
     strcpy(device_certificate.info.issuer, device_certificate.info.subject);
 
     CompressedKeyGeneration(device_certificate.info.secret_key, device_certificate.info.public_key);
