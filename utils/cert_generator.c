@@ -81,7 +81,7 @@ int main()
 void authorityCertGen(void)
 {
 
-    mavlink_authority_certificate_t cert;
+    static mavlink_authority_certificate_t cert;
 
     printf("Generation of authority certificate\n");
 
@@ -93,6 +93,7 @@ void authorityCertGen(void)
     printf("Enter certificate issuer: ");
     scanf("%s", cert.issuer);
     strcpy(cert.subject, cert.issuer);
+    cert.subject[19] = 0;
 
     printf("Name: %s \n", cert.certificateName);
     printf("Issuer: %s \n", cert.issuer);
@@ -120,8 +121,8 @@ void authorityCertGen(void)
 
 void uavCertGen()
 {
-    mavlink_authority_certificate_t authority_certificate;
-    mavlink_device_certificate_t device_certificate;
+    static mavlink_authority_certificate_t authority_certificate;
+    static mavlink_device_certificate_t device_certificate;
 
     FILE *fp;
     fp = fopen("authority.cert", "rb+");
@@ -146,6 +147,8 @@ void uavCertGen()
 
     printf("Creation of UAV certificate \n");
 
+    device_certificate.info.seq_number = authority_certificate.seq_number;
+
     int value = 0;
     printf("Enter device ID: ");
     scanf("%d", &value);
@@ -169,14 +172,15 @@ void uavCertGen()
 
     strcpy(device_certificate.info.start_time, asctime(localtime(&start)));
     strcpy(device_certificate.info.end_time, asctime(localtime(&end)));
-    strcpy(device_certificate.info.issuer, device_certificate.info.subject);
+    strcpy(device_certificate.info.issuer, authority_certificate.issuer);
     device_certificate.info.start_time[25] = 0;
     device_certificate.info.end_time[25] = 0;
     device_certificate.info.issuer[19] = 0;
-
+    memcpy(device_certificate.info.public_key_auth, authority_certificate.public_key_auth, sizeof(authority_certificate.public_key_auth));
 
     CompressedKeyGeneration(device_certificate.secret_key, device_certificate.info.public_key);
 
+    printf("Sequent number: %d\n", device_certificate.info.seq_number);
     printf("Pubic_key:");
     hex_print(device_certificate.info.public_key, 0, 32);
 
@@ -190,14 +194,23 @@ void uavCertGen()
     unsigned int valid;
     SchnorrQ_Verify(authority_certificate.public_key_auth, cert, sizeof(info_t), device_certificate.sign, &valid);
 
+    hex_print(cert,0,sizeof(info_t)); 
+    printf("Seq num %x\n", device_certificate.info.seq_number);//ok
+    printf("device id %x\n", device_certificate.info.device_id); //ok
+    hex_print((uint8_t *)device_certificate.info.device_name,0,20); //ok
+    hex_print((uint8_t *)device_certificate.info.subject,0,20); //ok
+    hex_print((uint8_t *)device_certificate.info.issuer,0,20); //ok
+    hex_print(device_certificate.info.public_key,0,32);//ok
+    hex_print(device_certificate.info.public_key_auth,0,32); //ok
+    hex_print((uint8_t *)device_certificate.info.start_time,0,26);//ok
+    hex_print((uint8_t *)device_certificate.info.end_time,0,26);//ok
+
     if (valid)
     {
-        memcpy(device_certificate.info.public_key_auth, authority_certificate.public_key, sizeof(authority_certificate.public_key));
         fp = fopen("device.cert", "wb");
         fwrite(&device_certificate, sizeof(device_certificate), 1, fp);
         fclose(fp);
         printf("Valid from %s to %s\n",device_certificate.info.start_time,device_certificate.info.end_time);
-
         return;
     }
     exit(1);
