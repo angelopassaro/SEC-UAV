@@ -25,6 +25,7 @@ typedef struct info_s
     char subject[20];
     char issuer[20];
     uint8_t public_key[32];
+    uint8_t public_key_auth[32];
     float start_time;
     float end_time;
 } info_t;
@@ -191,8 +192,9 @@ void uavCertGen()
 
     if (valid)
     {
+        memcpy(device_certificate.info.public_key_auth,authority_certificate.public_key_auth,32);
         fp = fopen("device.cert", "wb");
-        fwrite(&device_certificate, sizeof(device_certificate), 1, fp);
+        fwrite(&device_certificate, sizeof(mavlink_device_certificate_t), 1, fp);
         fclose(fp);
         printf("Valid from %s to %s\n",asctime(localtime(&start)),asctime(localtime(&end)));
         return;
