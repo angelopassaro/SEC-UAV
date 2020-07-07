@@ -194,17 +194,6 @@ void uavCertGen()
     unsigned int valid;
     SchnorrQ_Verify(authority_certificate.public_key_auth, cert, sizeof(info_t), device_certificate.sign, &valid);
 
-    hex_print(cert,0,sizeof(info_t)); 
-    printf("Seq num %x\n", device_certificate.info.seq_number);//ok
-    printf("device id %x\n", device_certificate.info.device_id); //ok
-    hex_print((uint8_t *)device_certificate.info.device_name,0,20); //ok
-    hex_print((uint8_t *)device_certificate.info.subject,0,20); //ok
-    hex_print((uint8_t *)device_certificate.info.issuer,0,20); //ok
-    hex_print(device_certificate.info.public_key,0,32);//ok
-    hex_print(device_certificate.info.public_key_auth,0,32); //ok
-    hex_print((uint8_t *)device_certificate.info.start_time,0,26);//ok
-    hex_print((uint8_t *)device_certificate.info.end_time,0,26);//ok
-
     if (valid)
     {
         fp = fopen("device.cert", "wb");
