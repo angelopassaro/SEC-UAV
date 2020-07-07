@@ -68,6 +68,6 @@ Block ciphers CTR-mode
 - [ ] Script for setup
 
 # Usage
-- Clone [Ardupilot](https://github.com/ArduPilot/ardupilot) or [Ardupilot Custom](https://github.com/angelopassaro/ardupilot)(for bridge network in vagrant)  and [QGroundControl](https://github.com/mavlink/qgroundcontrol)
+- Clone [Ardupilot Custom](https://github.com/angelopassaro/ardupilotcustom)(for bridge network in vagrant) and [QGroundControlCustom](https://github.com/angelopassaro/qgroundcontrolcustom)
 - Copy contents of [Custom Mavlink](https://github.com/angelopassaro/c_library_v2) for ardupilot in ardupilot/build/sitl/libraries/GCS_MAVLink/include/mavlink/v2.0/ and for qgroundcontrol in qgroundcontrol/libs/mavlink/include/mavlink/v2.0/ 
 
