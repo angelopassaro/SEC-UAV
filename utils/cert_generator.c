@@ -26,14 +26,14 @@ typedef struct info_s
     char issuer[20];
     uint8_t public_key[32];
     uint8_t public_key_auth[32];
-    uint8_t secret_key[32];
-    time_t start_time;
-    time_t end_time;
+    char start_time[26];
+    char end_time[26];
 } info_t;
 
 typedef struct mavlink_device_certificate
 {
     info_t info;
+    uint8_t secret_key[32];
     uint8_t sign[64];
 } mavlink_device_certificate_t;
 
@@ -163,19 +163,25 @@ void uavCertGen()
     scanf("%d", &days);
 
     time(&start);
-    struct tm *tm = localtime(&device_certificate.info.start_time);
+    struct tm *tm = localtime(&start);
     tm->tm_mday += days;
-    device_certificate.info.end_time = mktime(tm);
+    time_t end = mktime(tm);
 
+    strcpy(device_certificate.info.start_time, asctime(localtime(&start)));
+    strcpy(device_certificate.info.end_time, asctime(localtime(&end)));
     strcpy(device_certificate.info.issuer, device_certificate.info.subject);
+    device_certificate.info.start_time[25] = 0;
+    device_certificate.info.end_time[25] = 0;
+    device_certificate.info.issuer[19] = 0;
 
-    CompressedKeyGeneration(device_certificate.info.secret_key, device_certificate.info.public_key);
+
+    CompressedKeyGeneration(device_certificate.secret_key, device_certificate.info.public_key);
 
     printf("Pubic_key:");
     hex_print(device_certificate.info.public_key, 0, 32);
 
     printf("Secret_key:");
-    hex_print(device_certificate.info.secret_key, 0, 32);
+    hex_print(device_certificate.secret_key, 0, 32);
 
     uint8_t cert[sizeof(info_t)];
     memcpy(cert, &device_certificate.info, sizeof(info_t));
@@ -186,11 +192,11 @@ void uavCertGen()
 
     if (valid)
     {
-        printf("Valid Cert\n");
         memcpy(device_certificate.info.public_key_auth, authority_certificate.public_key, sizeof(authority_certificate.public_key));
         fp = fopen("device.cert", "wb");
         fwrite(&device_certificate, sizeof(device_certificate), 1, fp);
         fclose(fp);
+        printf("Valid from %s to %s\n",device_certificate.info.start_time,device_certificate.info.end_time);
 
         return;
     }
