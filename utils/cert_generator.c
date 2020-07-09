@@ -5,7 +5,6 @@
 
 #define member_size(type, member) sizeof(((type *)0)->member)
 
-
 void hex_print(uint8_t *pv, uint16_t s, uint16_t len)
 {
     uint8_t *p = pv;
@@ -40,7 +39,6 @@ typedef struct mavlink_device_certificate
     uint8_t sign[64];
 } mavlink_device_certificate_t;
 
-
 void authorityCertGen(void);
 void uavCertGen(void);
 void signCertificate(mavlink_device_certificate_t *cert, uint8_t *sk, uint8_t *pk);
@@ -71,8 +69,6 @@ int main()
     return 0;
 }
 
-
-
 void authorityCertGen(void)
 {
 
@@ -89,6 +85,14 @@ void authorityCertGen(void)
 
     printf("Subject: %s \n", cert.info.subject);
     strcpy(cert.info.issuer, cert.info.issuer);
+
+    printf("Enter device name: ");
+    scanf("%s", cert.info.device_name);
+
+    int value = 0;
+    printf("Enter device ID: ");
+    scanf("%d", &value);
+    cert.info.device_id = value;
 
     int days = 0;
     time_t start;
@@ -116,25 +120,24 @@ void authorityCertGen(void)
     cert.info.seq_number = 0;
     printf("Sequent number: 0x%x\n", cert.info.seq_number);
 
-
     uint8_t certificate[sizeof(info_t)];
 
-    memcpy(&certificate[0],&cert.info.seq_number,member_size(info_t, seq_number));
-    memcpy(&certificate[member_size(info_t, seq_number)],&cert.info.device_id,member_size(info_t, device_id));
-    memcpy(&certificate[member_size(info_t, seq_number) + member_size(info_t, device_id)],cert.info.device_name,member_size(info_t, device_name));
-    memcpy(&certificate[member_size(info_t, seq_number) + member_size(info_t, device_id) + member_size(info_t, device_name)],cert.info.subject,member_size(info_t, subject));
-    memcpy(&certificate[member_size(info_t, seq_number) + member_size(info_t, device_id) + member_size(info_t, device_name) + member_size(info_t, subject)],cert.info.issuer,member_size(info_t, issuer));
-    memcpy(&certificate[member_size(info_t, seq_number) + member_size(info_t, device_id) + member_size(info_t, device_name) + member_size(info_t, subject) + member_size(info_t, issuer)],cert.info.public_key,member_size(info_t, public_key));
-    memcpy(&certificate[member_size(info_t, seq_number) + member_size(info_t, device_id) + member_size(info_t, device_name) + member_size(info_t, subject) + member_size(info_t, issuer) + member_size(info_t, public_key)],cert.info.public_key_auth,member_size(info_t, public_key_auth));
-    memcpy(&certificate[member_size(info_t, seq_number) + member_size(info_t, device_id) + member_size(info_t, device_name) + member_size(info_t, subject) + member_size(info_t, issuer) + member_size(info_t, public_key) + member_size(info_t, public_key_auth)],&cert.info.start_time,member_size(info_t, start_time));
-    memcpy(&certificate[member_size(info_t, seq_number) + member_size(info_t, device_id) + member_size(info_t, device_name) + member_size(info_t, subject) + member_size(info_t, issuer) + member_size(info_t, public_key) + member_size(info_t, public_key_auth)+ member_size(info_t, start_time)],&cert.info.end_time,member_size(info_t, end_time));
+    memcpy(&certificate[0], &cert.info.seq_number, member_size(info_t, seq_number));
+    memcpy(&certificate[member_size(info_t, seq_number)], &cert.info.device_id, member_size(info_t, device_id));
+    memcpy(&certificate[member_size(info_t, seq_number) + member_size(info_t, device_id)], cert.info.device_name, member_size(info_t, device_name));
+    memcpy(&certificate[member_size(info_t, seq_number) + member_size(info_t, device_id) + member_size(info_t, device_name)], cert.info.subject, member_size(info_t, subject));
+    memcpy(&certificate[member_size(info_t, seq_number) + member_size(info_t, device_id) + member_size(info_t, device_name) + member_size(info_t, subject)], cert.info.issuer, member_size(info_t, issuer));
+    memcpy(&certificate[member_size(info_t, seq_number) + member_size(info_t, device_id) + member_size(info_t, device_name) + member_size(info_t, subject) + member_size(info_t, issuer)], cert.info.public_key, member_size(info_t, public_key));
+    memcpy(&certificate[member_size(info_t, seq_number) + member_size(info_t, device_id) + member_size(info_t, device_name) + member_size(info_t, subject) + member_size(info_t, issuer) + member_size(info_t, public_key)], cert.info.public_key_auth, member_size(info_t, public_key_auth));
+    memcpy(&certificate[member_size(info_t, seq_number) + member_size(info_t, device_id) + member_size(info_t, device_name) + member_size(info_t, subject) + member_size(info_t, issuer) + member_size(info_t, public_key) + member_size(info_t, public_key_auth)], &cert.info.start_time, member_size(info_t, start_time));
+    memcpy(&certificate[member_size(info_t, seq_number) + member_size(info_t, device_id) + member_size(info_t, device_name) + member_size(info_t, subject) + member_size(info_t, issuer) + member_size(info_t, public_key) + member_size(info_t, public_key_auth) + member_size(info_t, start_time)], &cert.info.end_time, member_size(info_t, end_time));
 
-
-    SchnorrQ_Sign(cert.secret_key,  cert.info.public_key_auth, certificate, sizeof(info_t), cert.sign);
+    SchnorrQ_Sign(cert.secret_key, cert.info.public_key_auth, certificate, sizeof(info_t), cert.sign);
     unsigned int valid;
     SchnorrQ_Verify(cert.info.public_key_auth, certificate, sizeof(info_t), cert.sign, &valid);
 
-    if(valid){
+    if (valid)
+    {
         FILE *fp;
         fp = fopen("authority.cert", "wb");
         fwrite(&cert, sizeof(cert), 1, fp);
@@ -161,6 +164,7 @@ void uavCertGen()
     printf("Loaded authority certificate \n");
     printf("issuer: %s\n", authority_certificate.info.issuer);
     printf("Subject: %s\n", authority_certificate.info.subject);
+    printf("Device: %s\n", authority_certificate.info.device_name);
     printf("Current sequent number %d\n", authority_certificate.info.seq_number);
     printf("Public_key:");
     hex_print(authority_certificate.info.public_key, 0, 32);
@@ -206,7 +210,7 @@ void uavCertGen()
 
     printf("Secret_key:");
     hex_print(device_certificate.secret_key, 0, 32);
-    memcpy(device_certificate.info.public_key_auth,authority_certificate.info.public_key_auth,32);
+    memcpy(device_certificate.info.public_key_auth, authority_certificate.info.public_key_auth, 32);
 
     uint8_t cert[sizeof(info_t)];
 
@@ -215,15 +219,15 @@ void uavCertGen()
     memcpy(cert, &device_certificate, sizeof(info_t));
     hex_print(cert,0,sizeof(info_t));
     */
-    memcpy(&cert[0],&device_certificate.info.seq_number,member_size(info_t, seq_number));
-    memcpy(&cert[member_size(info_t, seq_number)],&device_certificate.info.device_id,member_size(info_t, device_id));
-    memcpy(&cert[member_size(info_t, seq_number) + member_size(info_t, device_id)],device_certificate.info.device_name,member_size(info_t, device_name));
-    memcpy(&cert[member_size(info_t, seq_number) + member_size(info_t, device_id) + member_size(info_t, device_name)],device_certificate.info.subject,member_size(info_t, subject));
-    memcpy(&cert[member_size(info_t, seq_number) + member_size(info_t, device_id) + member_size(info_t, device_name) + member_size(info_t, subject)],device_certificate.info.issuer,member_size(info_t, issuer));
-    memcpy(&cert[member_size(info_t, seq_number) + member_size(info_t, device_id) + member_size(info_t, device_name) + member_size(info_t, subject) + member_size(info_t, issuer)],device_certificate.info.public_key,member_size(info_t, public_key));
-    memcpy(&cert[member_size(info_t, seq_number) + member_size(info_t, device_id) + member_size(info_t, device_name) + member_size(info_t, subject) + member_size(info_t, issuer) + member_size(info_t, public_key)],device_certificate.info.public_key_auth,member_size(info_t, public_key_auth));
-    memcpy(&cert[member_size(info_t, seq_number) + member_size(info_t, device_id) + member_size(info_t, device_name) + member_size(info_t, subject) + member_size(info_t, issuer) + member_size(info_t, public_key) + member_size(info_t, public_key_auth)],&device_certificate.info.start_time,member_size(info_t, start_time));
-    memcpy(&cert[member_size(info_t, seq_number) + member_size(info_t, device_id) + member_size(info_t, device_name) + member_size(info_t, subject) + member_size(info_t, issuer) + member_size(info_t, public_key) + member_size(info_t, public_key_auth)+ member_size(info_t, start_time)],&device_certificate.info.end_time,member_size(info_t, end_time));
+    memcpy(&cert[0], &device_certificate.info.seq_number, member_size(info_t, seq_number));
+    memcpy(&cert[member_size(info_t, seq_number)], &device_certificate.info.device_id, member_size(info_t, device_id));
+    memcpy(&cert[member_size(info_t, seq_number) + member_size(info_t, device_id)], device_certificate.info.device_name, member_size(info_t, device_name));
+    memcpy(&cert[member_size(info_t, seq_number) + member_size(info_t, device_id) + member_size(info_t, device_name)], device_certificate.info.subject, member_size(info_t, subject));
+    memcpy(&cert[member_size(info_t, seq_number) + member_size(info_t, device_id) + member_size(info_t, device_name) + member_size(info_t, subject)], device_certificate.info.issuer, member_size(info_t, issuer));
+    memcpy(&cert[member_size(info_t, seq_number) + member_size(info_t, device_id) + member_size(info_t, device_name) + member_size(info_t, subject) + member_size(info_t, issuer)], device_certificate.info.public_key, member_size(info_t, public_key));
+    memcpy(&cert[member_size(info_t, seq_number) + member_size(info_t, device_id) + member_size(info_t, device_name) + member_size(info_t, subject) + member_size(info_t, issuer) + member_size(info_t, public_key)], device_certificate.info.public_key_auth, member_size(info_t, public_key_auth));
+    memcpy(&cert[member_size(info_t, seq_number) + member_size(info_t, device_id) + member_size(info_t, device_name) + member_size(info_t, subject) + member_size(info_t, issuer) + member_size(info_t, public_key) + member_size(info_t, public_key_auth)], &device_certificate.info.start_time, member_size(info_t, start_time));
+    memcpy(&cert[member_size(info_t, seq_number) + member_size(info_t, device_id) + member_size(info_t, device_name) + member_size(info_t, subject) + member_size(info_t, issuer) + member_size(info_t, public_key) + member_size(info_t, public_key_auth) + member_size(info_t, start_time)], &device_certificate.info.end_time, member_size(info_t, end_time));
 
     SchnorrQ_Sign(authority_certificate.secret_key, authority_certificate.info.public_key_auth, cert, sizeof(info_t), device_certificate.sign);
     unsigned int valid;
@@ -234,7 +238,7 @@ void uavCertGen()
         fp = fopen("device.cert", "wb");
         fwrite(&device_certificate, sizeof(mavlink_device_certificate_t), 1, fp);
         fclose(fp);
-        printf("Valid from %s to %s\n",asctime(localtime(&start)),asctime(localtime(&end)));
+        printf("Valid from %s to %s\n", asctime(localtime(&start)), asctime(localtime(&end)));
         return;
     }
     exit(1);
