@@ -53,13 +53,14 @@ Block ciphers CTR-mode
 #### Key exchange
 - [x] Create new message in MAVLink (Certificate for pubkey)
 - [x] FourQlib integration in mavlink
-- [ ] Handle in MAVLink the new message
+- [X] Handle in MAVLink the new message
 -------------------------------------------------------------
-- [ ] Integrate new message in SITL
-- [ ] Integrate new message in QgrounControl
+- [X] Integrate new message in SITL(ardupilot)
+- [X] Integrate new message in QgrounControl
 -------------------------------------------------------------
 #### Benchmark
 - [x] Benchmark
+- [] Certificate Benchmark
 ------------------------------------------------------------
 #### Other
 - [x] Merge in unique file crypto 
