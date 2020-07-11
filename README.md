@@ -36,8 +36,6 @@ In this work I added different  algorithms of  lightweight cryptography for test
 - Added FourQlib [original implementation](https://github.com/microsoft/FourQlib)
 - Tiger hash [Implementation](https://github.com/rhash/RHash)
 
-### TODO
-Working on key exchange
 #### Encryption
 - [x] Add encryption
 
