@@ -60,13 +60,12 @@ Block ciphers CTR-mode
 -------------------------------------------------------------
 #### Benchmark
 - [x] Benchmark
-- [] Certificate Benchmark
+- [ ] Certificate Benchmark
 ------------------------------------------------------------
 #### Other
 - [x] Merge in unique file crypto 
 - [x] Clone https://github.com/ArduPilot/pymavlink/ and update https://github.com/ArduPilot/pymavlink/tree/master/generator/C/include_v2.0 with custom files
 - [x] Remove useless modules in repo (Ardupilot, QgroundControl)
-- [ ] Script for setup
 
 # Usage
 - Clone [Ardupilot Custom](https://github.com/angelopassaro/ardupilotcustom)(for bridge network in vagrant) and [QGroundControlCustom](https://github.com/angelopassaro/qgroundcontrolcustom)
