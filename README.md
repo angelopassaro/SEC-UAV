@@ -58,7 +58,7 @@ Block ciphers CTR-mode
 -------------------------------------------------------------
 #### Benchmark
 - [x] Benchmark
-- [ ] Certificate Benchmark
+- [x] Certificate Benchmark
 ------------------------------------------------------------
 #### Other
 - [x] Merge in unique file crypto 
