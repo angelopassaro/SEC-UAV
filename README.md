@@ -76,8 +76,8 @@ This implementation is for testing purposes **ONLY** and safety is not guarantee
 - Build QGroundControlCustom [Build instructions](https://dev.qgroundcontrol.com/master/en/getting_started/index.html#native-builds)
 - Generate certificates for GCS and UAV [certificate generator](https://github.com/angelopassaro/SEC-UAV/blob/master/utils/cert_generator.c)
 - Copy the generated certificates to the root directory of Ardupilot and QgroundControl. If you prefer a different path change the paths in:
-     -[Ardupilot](https://github.com/angelopassaro/ArdupilotCustom/blob/42451935ac905105d64df6a852c15cf332e682a9/libraries/GCS_MAVLink/GCS_Common.cpp#L863)
-     -[QgroundControl](https://github.com/angelopassaro/qgroundcontrolcustom/blob/7c7dc01f5d184c354a70e8543abca1c5da082f08/src/comm/MAVLinkProtocol.cc#L343)
+     - [Ardupilot](https://github.com/angelopassaro/ArdupilotCustom/blob/42451935ac905105d64df6a852c15cf332e682a9/libraries/GCS_MAVLink/GCS_Common.cpp#L863)
+     - [QgroundControl](https://github.com/angelopassaro/qgroundcontrolcustom/blob/7c7dc01f5d184c354a70e8543abca1c5da082f08/src/comm/MAVLinkProtocol.cc#L343)
      - Rebuild QgroundControl
 
 
