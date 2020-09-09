@@ -65,6 +65,9 @@ Block ciphers CTR-mode
 - [x] Clone https://github.com/ArduPilot/pymavlink/ and update https://github.com/ArduPilot/pymavlink/tree/master/generator/C/include_v2.0 with custom files
 - [x] Remove useless modules in repo (Ardupilot, QgroundControl)
 
+# Disclaimer
+This implementation is for testing purposes **ONLY** and safety is not guaranteed.
+
 # Usage
 - Clone [Ardupilot Custom](https://github.com/angelopassaro/ardupilotcustom)(key exchange and encryption support) and [QGroundControlCustom](https://github.com/angelopassaro/qgroundcontrolcustom)(key exchange and encryption support)
 - Copy contents of [Custom Mavlink](https://github.com/angelopassaro/c_library_v2) for:
@@ -72,9 +75,9 @@ Block ciphers CTR-mode
     - qgroundcontrol in qgroundcontrol/libs/mavlink/include/mavlink/v2.0/
 - Build QGroundControlCustom [Build instructions](https://dev.qgroundcontrol.com/master/en/getting_started/index.html#native-builds)
 - Generate certificates for GCS and UAV [certificate generator](https://github.com/angelopassaro/SEC-UAV/blob/master/utils/cert_generator.c)
-- Copy the generated certificates to the root directory of Ardupilot and QgroundControl. If you prefer a different path change the paths in::
-    -[Ardupilot](https://github.com/angelopassaro/ArdupilotCustom/blob/42451935ac905105d64df6a852c15cf332e682a9/libraries/GCS_MAVLink/GCS_Common.cpp#L863)
-    -[QgroundControl](https://github.com/angelopassaro/qgroundcontrolcustom/blob/7c7dc01f5d184c354a70e8543abca1c5da082f08/src/comm/MAVLinkProtocol.cc#L343)
-    - Rebuild QgroundControl
+- Copy the generated certificates to the root directory of Ardupilot and QgroundControl. If you prefer a different path change the paths in:
+     -[Ardupilot](https://github.com/angelopassaro/ArdupilotCustom/blob/42451935ac905105d64df6a852c15cf332e682a9/libraries/GCS_MAVLink/GCS_Common.cpp#L863)
+     -[QgroundControl](https://github.com/angelopassaro/qgroundcontrolcustom/blob/7c7dc01f5d184c354a70e8543abca1c5da082f08/src/comm/MAVLinkProtocol.cc#L343)
+     - Rebuild QgroundControl
 
 
