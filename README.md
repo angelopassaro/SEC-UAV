@@ -70,6 +70,7 @@ This implementation is for testing purposes **ONLY** and safety is not guarantee
 
 # Usage
 - Clone [Ardupilot Custom](https://github.com/angelopassaro/ardupilotcustom)(key exchange and encryption support) and [QGroundControlCustom](https://github.com/angelopassaro/qgroundcontrolcustom)(key exchange and encryption support)
+- Setting up [SITL](https://ardupilot.org/dev/docs/SITL-setup-landingpage.html)(Ardupilot)
 - Copy contents of [Custom Mavlink](https://github.com/angelopassaro/c_library_v2) for:
     - ardupilot in ardupilot/build/sitl/libraries/GCS_MAVLink/include/mavlink/v2.0/
     - qgroundcontrol in qgroundcontrol/libs/mavlink/include/mavlink/v2.0/
