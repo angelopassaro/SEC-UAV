@@ -1,6 +1,6 @@
 # UAV
 
-In this work I added different  algorithms of  lightweight cryptography for test their performance. The original idea of add encryption in MAVLink was propose in "MAVSec: Securing the MAVLink Protocol for Ardupilot/PX4 Unmanned Aerial Systems"
+In this work I have added several lightweight encryption algorithms to test its performance. The original idea to add encryption in MAVLink was proposed in "MAVSec: Securing the MAVLink protocol for Ardupilot/PX4 unmanned aircraft systems". I also integrated a key exchange mechanism based on FourQ. Finally I have integrated the new functionalities both within QgroundControl and the Ardupilot.
 
 # Original
 [MAVSec](https://github.com/aniskoubaa/mavsec)
