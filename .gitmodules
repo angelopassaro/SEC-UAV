@@ -4,3 +4,9 @@
 [submodule "mavlink"]
 	path = mavlink
 	url = https://github.com/angelopassaro/mavlink
+[submodule "qgroundcontrolcustom"]
+	path = qgroundcontrolcustom
+	url = https://github.com/angelopassaro/qgroundcontrolcustom
+[submodule "ArdupilotCustom"]
+	path = ArdupilotCustom
+	url = https://github.com/angelopassaro/ArdupilotCustom
